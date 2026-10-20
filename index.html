@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Friends' Race Events</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f2f1ec;
+        --surface: #fbfaf7;
+        --surface-2: #eceade;
+        --ink: #1d2420;
+        --ink-soft: #4c554f;
+        --ink-faint: #77817a;
+        --line: #d8d5c9;
+        --accent: #d9481f;
+        --accent-ink: #b23a17;
+        --accent-soft: #fbe9e2;
+        --pine: #256b52;
+        --pine-soft: #e2efe8;
+        --gold: #a86e0c;
+        --gold-soft: #f6ecd4;
+        --dnf: #8a4b12;
+        --shadow: 0 1px 2px rgba(29, 36, 32, 0.06), 0 8px 24px rgba(29, 36, 32, 0.06);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #10140f;
+          --surface: #181d17;
+          --surface-2: #20261f;
+          --ink: #eceee6;
+          --ink-soft: #b3baae;
+          --ink-faint: #7f887c;
+          --line: #2e362c;
+          --accent: #ff7a4d;
+          --accent-ink: #ffa07e;
+          --accent-soft: #33201a;
+          --pine: #6fcea6;
+          --pine-soft: #1d2b23;
+          --gold: #e0aa4e;
+          --gold-soft: #2c2413;
+          --dnf: #e0aa4e;
+          --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Barlow", system-ui, -apple-system, sans-serif;
+        font-size: 16px;
+        line-height: 1.45;
+      }
+      a { color: var(--accent-ink); }
+      .wrap { max-width: 1080px; margin: 0 auto; padding: 28px 20px 56px; }
+
+      /* ---------- Header ---------- */
+      header.masthead { margin-bottom: 26px; }
+      .masthead h1 {
+        font-family: "Barlow Condensed", "Barlow", sans-serif;
+        font-weight: 700;
+        font-size: clamp(2.1rem, 6vw, 3.2rem);
+        line-height: 1.02;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        margin: 0 0 8px;
+      }
+      .masthead h1 .accent { color: var(--accent); }
+      .masthead p.lede { margin: 0 0 14px; color: var(--ink-soft); max-width: 62ch; font-size: 1.02rem; }
+      .meta-row {
+        display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center;
+        font-size: 0.88rem; color: var(--ink-faint);
+        border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+        padding: 9px 0;
+      }
+      .meta-row .dot::before { content: "•"; margin-right: 18px; color: var(--line); }
+      @media (max-width: 600px) {
+        .meta-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+        .meta-row .dot::before { content: ""; margin: 0; }
+      }
+      .meta-row strong { color: var(--ink-soft); font-weight: 600; }
+
+      /* ---------- Section headings ---------- */
+      h2.section-title {
+        font-family: "Barlow Condensed", "Barlow", sans-serif;
+        font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+        font-size: 1.35rem; margin: 34px 0 14px;
+        display: flex; align-items: baseline; gap: 10px;
+      }
+      h2.section-title .count {
+        font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; font-weight: 500;
+        color: var(--ink-faint); letter-spacing: 0;
+      }
+
+      /* ---------- Next-up board ---------- */
+      .next-up {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-top: 4px solid var(--accent);
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        padding: 20px 22px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 16px 28px;
+        align-items: start;
+      }
+      .next-up .event-name {
+        font-family: "Barlow Condensed", "Barlow", sans-serif;
+        font-weight: 700; font-size: clamp(1.5rem, 4.5vw, 2rem); line-height: 1.08;
+        margin: 0 0 6px;
+      }
+      .next-up .event-when {
+        font-family: "IBM Plex Mono", monospace; font-size: 0.95rem; color: var(--ink-soft);
+      }
+      .next-up .who-row {
+        margin-top: 14px; display: flex; flex-wrap: wrap; gap: 14px 40px;
+      }
+      .next-up .who-label {
+        font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+        color: var(--ink-faint); margin: 0 0 7px;
+      }
+      .next-up .who-label .count {
+        font-family: "IBM Plex Mono", monospace; font-weight: 500; letter-spacing: 0;
+        text-transform: none; margin-left: 2px;
+      }
+      .who-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+      .who-chips a, .who-chips span {
+        display: inline-block; padding: 5px 12px; border-radius: 999px;
+        background: var(--accent-soft); color: var(--accent-ink);
+        font-weight: 600; font-size: 0.9rem; text-decoration: none;
+      }
+      .who-chips a:hover { text-decoration: underline; }
+      .who-chips.not-in a, .who-chips.not-in span {
+        background: var(--surface-2); color: var(--ink-faint);
+        border: 1px dashed var(--line);
+      }
+      .countdown { text-align: right; }
+      .countdown .num {
+        font-family: "Barlow Condensed", "Barlow", sans-serif;
+        font-weight: 700; font-size: clamp(2.6rem, 8vw, 3.6rem); line-height: 0.95; color: var(--accent);
+      }
+      .countdown .unit { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); }
+
+      /* ---------- Friend cards ---------- */
+      .friends { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+      @media (max-width: 760px) { .friends { grid-template-columns: 1fr; } }
+      .card {
+        background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+        box-shadow: var(--shadow); padding: 18px 20px 16px;
+        display: flex; flex-direction: column;
+      }
+      .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+      .card-head h3 {
+        font-family: "Barlow Condensed", "Barlow", sans-serif;
+        font-weight: 700; font-size: 1.55rem; line-height: 1.05; margin: 0;
+      }
+      .ag-chip {
+        flex: none; font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; font-weight: 600;
+        background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px;
+        padding: 3px 8px; color: var(--ink-soft);
+      }
+      .stat-row {
+        display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 10px 0 4px;
+        font-size: 0.9rem; color: var(--ink-soft);
+      }
+      .stat-row b { color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+      .stat-row .trophy { color: var(--gold); font-weight: 700; }
+      .card-note { font-size: 0.85rem; color: var(--ink-faint); margin: 4px 0 0; }
+
+      .upcoming-block { margin-top: 14px; }
+      .block-label {
+        font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em;
+        color: var(--ink-faint); margin-bottom: 7px;
+      }
+      .upcoming-item {
+        background: var(--pine-soft); border-radius: 8px; padding: 10px 13px; margin-bottom: 8px;
+      }
+      .upcoming-item .u-name { font-weight: 600; line-height: 1.3; }
+      .upcoming-item .u-when {
+        font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; color: var(--pine); font-weight: 600;
+      }
+      .no-upcoming {
+        border: 1px dashed var(--line); border-radius: 8px; padding: 10px 13px;
+        color: var(--ink-faint); font-size: 0.92rem;
+      }
+
+      /* ---------- Results ---------- */
+      .results-block { margin-top: 14px; }
+      table.results { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+      table.results td { padding: 7px 0; border-top: 1px solid var(--line); vertical-align: top; }
+      table.results tr:first-child td { border-top: none; }
+      .r-name { font-weight: 600; line-height: 1.3; padding-right: 10px; }
+      .r-name .r-date { display: block; font-weight: 400; color: var(--ink-faint); font-size: 0.82rem; margin-top: 1px; }
+      .r-detail { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+      .r-detail .r-time { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 0.88rem; }
+      .r-detail .r-place { display: block; color: var(--ink-faint); font-size: 0.8rem; margin-top: 1px; }
+      .badge {
+        display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
+        padding: 1px 6px; border-radius: 4px; vertical-align: 2px; margin-left: 6px;
+        background: var(--gold-soft); color: var(--dnf);
+      }
+      .more-results { display: none; }
+      .card.expanded .more-results { display: table-row-group; }
+      .toggle-btn {
+        margin-top: 10px; align-self: flex-start;
+        background: none; border: 1px solid var(--line); border-radius: 999px;
+        padding: 6px 14px; font: inherit; font-size: 0.86rem; font-weight: 600;
+        color: var(--ink-soft); cursor: pointer;
+      }
+      .toggle-btn:hover { border-color: var(--ink-faint); color: var(--ink); }
+      .toggle-btn:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+      .toggle-btn .chev { display: inline-block; transition: transform 0.15s ease; }
+      .card.expanded .toggle-btn .chev { transform: rotate(180deg); }
+      @media (prefers-reduced-motion: reduce) { .toggle-btn .chev { transition: none; } }
+
+      .trophy-list { margin: 6px 0 0; padding: 0; list-style: none; font-size: 0.9rem; }
+      .trophy-list li { padding: 6px 0; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 12px; }
+      .trophy-list li:first-child { border-top: none; }
+      .trophy-list .t-place { font-family: "IBM Plex Mono", monospace; font-weight: 600; color: var(--gold); white-space: nowrap; }
+
+      .card-foot { margin-top: auto; padding-top: 14px; }
+      .profile-link { font-weight: 600; font-size: 0.92rem; text-decoration: none; }
+      .profile-link:hover { text-decoration: underline; }
+
+      footer.colophon {
+        margin-top: 40px; border-top: 1px solid var(--line); padding-top: 14px;
+        color: var(--ink-faint); font-size: 0.88rem; max-width: 72ch;
+      }
+      footer.colophon p { margin: 0 0 8px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="masthead">
+        <h1>Friends' <span class="accent">Race</span> Events</h1>
+        <p class="lede">
+          Upcoming races and recent results for five runners, pulled from their public
+          UltraSignup profiles and refreshed daily.
+        </p>
+        <div class="meta-row">
+          <span><strong>Last checked:</strong> Monday, October 19, 2026</span>
+          <span class="dot"><strong>Source:</strong> UltraSignup participant pages</span>
+          <span class="dot"><strong>Tracking:</strong> 5 runners · 3 upcoming entries</span>
+        </div>
+      </header>
+
+      <h2 class="section-title">Next up <span class="count">— soonest race day on the board</span></h2>
+      <section class="next-up" aria-label="Next upcoming event">
+        <div>
+          <p class="event-name">Sombrero Ultra Running Festival ( SURF ) — 48 Hours</p>
+          <p class="event-when">Friday, February 12, 2027</p>
+          <div class="who-row">
+            <div class="who">
+              <p class="who-label">On the start list <span class="count">3 of 5</span></p>
+              <div class="who-chips">
+                <a href="#chris-ballesteros">Chris Ballesteros</a>
+                <a href="#jennifer-jochman">Jennifer Jochman</a>
+                <a href="#kassandra-coan">Kassandra Coan</a>
+              </div>
+            </div>
+            <div class="who">
+              <p class="who-label">Not registered</p>
+              <div class="who-chips not-in">
+                <a href="#juan-valdez">Juan Valdez</a>
+                <a href="#jody-mask">Jody Mask</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="countdown" aria-label="Countdown to race day">
+          <div class="num" id="countdown-num">116</div>
+          <div class="unit">days to go</div>
+        </div>
+      </section>
+
+      <h2 class="section-title">The runners <span class="count">— tap a card open for full history</span></h2>
+      <div class="friends">
+
+        <!-- ============ CHRIS BALLESTEROS ============ -->
+        <article class="card" id="chris-ballesteros">
+          <div class="card-head">
+            <h3>Chris Ballesteros</h3>
+            <span class="ag-chip">F56</span>
+          </div>
+          <div class="stat-row">
+            <span><b>27</b> races</span>
+            <span>Rank <b>81.36%</b></span>
+            <span>Age rank <b>90.57%</b></span>
+            <span class="trophy">★ 10 trophies</span>
+          </div>
+          <div class="upcoming-block">
+            <p class="block-label">Upcoming</p>
+            <div class="upcoming-item">
+              <div class="u-name">Sombrero Ultra Running Festival ( SURF ) — 48 Hours</div>
+              <div class="u-when">Fri, Feb 12, 2027</div>
+            </div>
+          </div>
+          <div class="results-block">
+            <p class="block-label">Trophy case</p>
+            <ul class="trophy-list">
+              <li><span>2018 Azalea 12/24 Hour — 24hrs</span><span class="t-place">1st</span></li>
+              <li><span>2024 Lost 118 Ultras — 118 Miles, Individual</span><span class="t-place">1st</span></li>
+              <li><span>2015 Azalea 12/24 Hour — 24hrs</span><span class="t-place">2nd</span></li>
+              <li><span>2016 Azalea 12/24 Hour — 24hrs</span><span class="t-place">2nd</span></li>
+              <li><span>2016 Palm Bluff Trail Race — 50K</span><span class="t-place">2nd</span></li>
+            </ul>
+            <div class="more-results" style="display:none">
+              <ul class="trophy-list">
+                <li><span>2016 Pinellas Trail Challenge — 46 Miler</span><span class="t-place">2nd</span></li>
+                <li><span>2016 Tick Tock Ultra — 12hrs</span><span class="t-place">2nd</span></li>
+                <li><span>2018 Tick Tock Ultra — 12hrs</span><span class="t-place">2nd</span></li>
+                <li><span>2020 Pinellas Trail Challenge — 46 Miler</span><span class="t-place">2nd</span></li>
+                <li><span>2018 Pinellas Trail Challenge — 46 Miler</span><span class="t-place">3rd</span></li>
+              </ul>
+              <p class="card-note" style="margin-top:10px">
+                26 finishes on his profile, from May 4, 2014 through Jan 24, 2026 — the full
+                per-race list lives on his UltraSignup page (link below).
+              </p>
+            </div>
+          </div>
+          <button class="toggle-btn" type="button" aria-expanded="false">All 10 trophies <span class="chev">▾</span></button>
+          <div class="card-foot">
+            <a class="profile-link" href="https://ultrasignup.com/m_results_participant.aspx?fname=Chris&amp;lname=Ballesteros" target="_blank" rel="noopener">UltraSignup profile →</a>
+          </div>
+        </article>
+
+        <!-- ============ JENNIFER JOCHMAN ============ -->
+        <article class="card" id="jennifer-jochman">
+          <div class="card-head">
+            <h3>Jennifer Jochman</h3>
+            <span class="ag-chip">F35</span>
+          </div>
+          <div class="stat-row">
+            <span><b>3</b> races</span>
+            <span>Rank <b>55.85%</b></span>
+            <span>Age rank <b>64.49%</b></span>
+          </div>
+          <div class="upcoming-block">
+            <p class="block-label">Upcoming</p>
+            <div class="upcoming-item">
+              <div class="u-name">Sombrero Ultra Running Festival ( SURF ) — 48 Hours</div>
+              <div class="u-when">Fri, Feb 12, 2027</div>
+            </div>
+          </div>
+          <div class="results-block">
+            <p class="block-label">Results</p>
+            <table class="results">
+              <tbody>
+                <tr>
+                  <td class="r-name">Monroe Cross Trail 50 Mile Ultra — 50 Mile Ultra<span class="r-date">Jan 24, 2026</span></td>
+                  <td class="r-detail"><span class="r-time">12:42:03</span><span class="r-place">Overall 29 · Div 11 · Rank 56.40%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Marine Corps Marathon — 50K<span class="r-date">Oct 29, 2023</span></td>
+                  <td class="r-detail"><span class="r-time">6:30:31</span><span class="r-place">Overall 1028 · Div 283 · Rank 55.30%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-foot">
+            <a class="profile-link" href="https://ultrasignup.com/m_results_participant.aspx?fname=Jennifer&amp;lname=Jochman" target="_blank" rel="noopener">UltraSignup profile →</a>
+          </div>
+        </article>
+
+        <!-- ============ KASSANDRA COAN ============ -->
+        <article class="card" id="kassandra-coan">
+          <div class="card-head">
+            <h3>Kassandra Coan</h3>
+            <span class="ag-chip">F34</span>
+          </div>
+          <div class="stat-row">
+            <span><b>22</b> races</span>
+            <span>Rank <b>63.65%</b></span>
+            <span>Age rank <b>77.74%</b></span>
+          </div>
+          <div class="upcoming-block">
+            <p class="block-label">Upcoming</p>
+            <div class="upcoming-item">
+              <div class="u-name">Sombrero Ultra Running Festival ( SURF ) — 48 Hours</div>
+              <div class="u-when">Fri, Feb 12, 2027</div>
+            </div>
+          </div>
+          <div class="results-block">
+            <p class="block-label">Recent results</p>
+            <table class="results">
+              <tbody>
+                <tr>
+                  <td class="r-name">Monroe Cross Trail 50 Mile Ultra — 17K<span class="r-date">Jan 24, 2026</span></td>
+                  <td class="r-detail"><span class="r-time">2:53:53</span><span class="r-place">Overall 34 · Div 22 · Rank 52.35%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Wild Boar Night Run — Half-Marathon<span class="r-date">Sep 14, 2024</span></td>
+                  <td class="r-detail"><span class="r-time">3:42:14</span><span class="r-place">Overall 100 · Div 28 · Rank 63.06%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">The Bootlegger 100 Mile Trail Race — 100 Mile<span class="r-date">Apr 6, 2024</span></td>
+                  <td class="r-detail"><span class="r-time">31:38:07</span><span class="r-place">Overall 23 · Div 7 · Rank 85.45%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Skunk Apes Revenge 60K<span class="r-date">Feb 10, 2024</span></td>
+                  <td class="r-detail"><span class="r-time">8:03:38</span><span class="r-place">Overall 19 · Div 8 · Rank 75.37%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Monroe Cross Trail 50 Mile Ultra — 50 Mile Ultra<span class="r-date">Jan 27, 2024</span></td>
+                  <td class="r-detail"><span class="r-time">11:32:55</span><span class="r-place">Overall 18 · Div 4 · Rank 76.98%</span></td>
+                </tr>
+              </tbody>
+              <tbody class="more-results">
+                <tr>
+                  <td class="r-name">RunFluent Christmas — 7 hour (timed)<span class="r-date">Dec 16, 2023</span></td>
+                  <td class="r-detail"><span class="r-time">16.6 mi</span><span class="r-place">Overall 55 · Div 29 · Rank 44.44%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Wild Florida Trail Run — 50K<span class="r-date">Nov 18, 2023</span></td>
+                  <td class="r-detail"><span class="r-time">7:43:01</span><span class="r-place">Overall 80 · Div 21 · Rank 66.23%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Marine Corps Marathon — 50K<span class="r-date">Oct 29, 2023</span></td>
+                  <td class="r-detail"><span class="r-time">5:45:45</span><span class="r-place">Overall 662 · Div 171 · Rank 62.46%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Wild Boar Night Run — Half-Marathon<span class="r-date">Sep 16, 2023</span></td>
+                  <td class="r-detail"><span class="r-time">3:07:55</span><span class="r-place">Overall 92 · Div 27 · Rank 63.95%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">YOTE — 25K<span class="r-date">Sep 9, 2023</span></td>
+                  <td class="r-detail"><span class="r-time">4:12:56</span><span class="r-place">Overall 22 · Div 5 · Rank 74.10%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Pinellas Trail Challenge — 46 Miler<span class="r-date">Sep 2, 2023</span></td>
+                  <td class="r-detail"><span class="r-time">12:18:07</span><span class="r-place">Overall 111 · Div 32 · Rank 58.01%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">DURTY BEER RUN 6hr Fat Ass Ultra — 6hrs (timed)<span class="r-date">Aug 12, 2023</span></td>
+                  <td class="r-detail"><span class="r-time">25.2 mi</span><span class="r-place">Overall 37 · Div 16 · Rank 69.42%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Skunk Ape Night Run — 30K<span class="r-date">Jul 22, 2023</span></td>
+                  <td class="r-detail"><span class="r-time">3:36:44</span><span class="r-place">Overall 44 · Div 13 · Rank 71.86%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Monroe Cross Trail 50 Mile Ultra — 50K<span class="r-date">Jan 28, 2023</span></td>
+                  <td class="r-detail"><span class="r-time">7:19:58</span><span class="r-place">Overall 20 · Div 12 · Rank 62.81%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">DURTY BEER RUN 6hr Fat Ass Ultra — 6hrs (timed)<span class="r-date">Aug 13, 2022</span></td>
+                  <td class="r-detail"><span class="r-time">10.8 mi</span><span class="r-place">Overall 110 · Div 56 · Rank 30.00%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Enchanted Forest Trail Races — 26 Miler<span class="r-date">Jul 30, 2022</span></td>
+                  <td class="r-detail"><span class="r-time">7:40:48</span><span class="r-place">Overall 34 · Div 11 · Rank 66.20%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">The Super Marathon &amp; Half — Marathon<span class="r-date">Jun 26, 2022</span></td>
+                  <td class="r-detail"><span class="r-time">5:38:02</span><span class="r-place">Overall 265 · Div 121 · Rank 55.70%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Palm Bluff Trail Race and Ultra “Margaritas &amp; Manure” — 50K<span class="r-date">May 1, 2022</span></td>
+                  <td class="r-detail"><span class="r-time">7:20:48</span><span class="r-place">Overall 19 · Div 7 · Rank 67.31%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Pinellas Trail Challenge — 46 Miler<span class="badge">DNF</span><span class="r-date">Aug 30, 2025</span></td>
+                  <td class="r-detail"><span class="r-place">Did not finish</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Monroe Cross Trail 50 Mile Ultra — 17K<span class="badge">DNS</span><span class="r-date">Jan 25, 2025</span></td>
+                  <td class="r-detail"><span class="r-place">Did not start</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Skunk Ape 100 Mile Endurance Run — 50 Mile<span class="badge">DNF</span><span class="r-date">Apr 27, 2024</span></td>
+                  <td class="r-detail"><span class="r-place">Did not finish</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <button class="toggle-btn" type="button" aria-expanded="false">Full history (18 finishes + 3 DNF/DNS) <span class="chev">▾</span></button>
+          <div class="card-foot">
+            <a class="profile-link" href="https://ultrasignup.com/m_results_participant.aspx?fname=Kassandra&amp;lname=Coan" target="_blank" rel="noopener">UltraSignup profile →</a>
+          </div>
+        </article>
+
+        <!-- ============ JUAN VALDEZ ============ -->
+        <article class="card" id="juan-valdez">
+          <div class="card-head">
+            <h3>Juan Valdez</h3>
+            <span class="ag-chip">M51</span>
+          </div>
+          <div class="stat-row">
+            <span><b>3</b> races</span>
+            <span>Rank <b>47.50%</b></span>
+            <span>Age rank <b>90.77%</b></span>
+          </div>
+          <p class="card-note">Tracked profile: the M51 Juan Valdez with 3 races — other runners share this name on UltraSignup.</p>
+          <div class="upcoming-block">
+            <p class="block-label">Upcoming</p>
+            <div class="no-upcoming">No upcoming events on his profile right now.</div>
+          </div>
+          <div class="results-block">
+            <p class="block-label">Results</p>
+            <table class="results">
+              <tbody>
+                <tr>
+                  <td class="r-name">DURTY BEER RUN 6hr Fat Ass Ultra — DBR 6 Hour (timed)<span class="r-date">Aug 2, 2025</span></td>
+                  <td class="r-detail"><span class="r-time">18 mi</span><span class="r-place">Overall 73 · Div 38 · Rank 42.86%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Christmas in July 3/6/12/24-Hour Solo/Relay Races — 12hrs (timed)<span class="r-date">Jul 14, 2017</span></td>
+                  <td class="r-detail"><span class="r-time">12.6516 mi</span><span class="r-place">Overall 65 · Div 26 · Rank 16.46%</span></td>
+                </tr>
+                <tr>
+                  <td class="r-name">Wabash Heritage Trail Marathon — 1/2 Marathon<span class="r-date">Sep 30, 2012</span></td>
+                  <td class="r-detail"><span class="r-time">1:41:13</span><span class="r-place">Overall 12 · Div 12 · Rank 83.17%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-foot">
+            <a class="profile-link" href="https://ultrasignup.com/m_results_participant.aspx?fname=Juan&amp;lname=Valdez" target="_blank" rel="noopener">UltraSignup profile →</a>
+          </div>
+        </article>
+
+        <!-- ============ JODY MASK ============ -->
+        <article class="card" id="jody-mask">
+          <div class="card-head">
+            <h3>Jody Mask</h3>
+            <span class="ag-chip">M55</span>
+          </div>
+          <div class="stat-row">
+            <span><b>1</b> race</span>
+            <span>Rank <b>62.51%</b></span>
+            <span>Age rank <b>100.00%</b></span>
+          </div>
+          <div class="upcoming-block">
+            <p class="block-label">Upcoming</p>
+            <div class="no-upcoming">No upcoming events on his profile right now.</div>
+          </div>
+          <div class="results-block">
+            <p class="block-label">Results</p>
+            <table class="results">
+              <tbody>
+                <tr>
+                  <td class="r-name">Monroe Cross Trail 50 Mile Ultra — 50 Mile Ultra<span class="r-date">Jan 24, 2026</span></td>
+                  <td class="r-detail"><span class="r-time">12:42:09</span><span class="r-place">Overall 30 · Div 19 · Rank 62.51%</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="card-note" style="margin-top:8px">Finished six seconds behind Jennifer at Monroe Cross Trail — same morning, same course.</p>
+          </div>
+          <div class="card-foot">
+            <a class="profile-link" href="https://ultrasignup.com/m_results_participant.aspx?fname=Jody&amp;lname=Mask" target="_blank" rel="noopener">UltraSignup profile →</a>
+          </div>
+        </article>
+
+      </div>
+
+      <footer class="colophon">
+        <p>
+          Data snapshot from UltraSignup participant pages, checked Monday, October 19, 2026.
+          Profiles are re-checked daily and this board is rebuilt when something changes.
+          Age-group codes (F56, M51…) shift as runners age, so identity is tracked by name and race list.
+        </p>
+        <p>
+          So far every event on these five profiles is a run — no cycling events appear on any of
+          the tracked UltraSignup pages yet. Add a friend's profile link any time and they'll join the board.
+        </p>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        // Countdown to the next race day (Feb 12, 2027), computed from the viewer's clock.
+        var target = new Date(2027, 1, 12);
+        var now = new Date();
+        var startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        var days = Math.round((target - startOfToday) / 86400000);
+        var el = document.getElementById("countdown-num");
+        if (el && days >= 0) el.textContent = days;
+
+        // Expand / collapse full history per card.
+        var buttons = document.querySelectorAll(".toggle-btn");
+        buttons.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var card = btn.closest(".card");
+            var expanded = card.classList.toggle("expanded");
+            var extra = card.querySelector(".more-results");
+            if (extra && extra.tagName !== "TBODY") {
+              extra.style.display = expanded ? "block" : "none";
+            }
+            btn.setAttribute("aria-expanded", expanded ? "true" : "false");
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
