@@ -146,8 +146,8 @@
         background: var(--surface-2); color: var(--ink-faint);
         border: 1px dashed var(--line);
       }
-      /* ---------- Manually added ---------- */
-      .next-up.manual { border-top-color: var(--gold); }
+      /* ---------- Upcoming events stack ---------- */
+      .event-stack { display: grid; gap: 18px; }
       .next-up .event-fullname { margin: 0 0 4px; color: var(--ink-faint); font-size: 0.92rem; }
       .next-up .event-where { margin: 3px 0 0; color: var(--ink-soft); font-size: 0.98rem; }
       .next-up .source-line { margin: 14px 0 0; font-weight: 600; font-size: 0.92rem; }
@@ -258,76 +258,77 @@
       <header class="masthead">
         <h1>Friends' <span class="accent">Race</span> Events</h1>
         <p class="lede">
-          Upcoming races and recent results for five runners, pulled from their public
-          UltraSignup profiles and refreshed daily.
+          Upcoming races and recent results for five runners, from their public
+          UltraSignup profiles plus races added in chat, refreshed daily.
         </p>
         <div class="meta-row">
           <span><strong>Last checked:</strong> Monday, October 19, 2026</span>
           <span class="dot"><strong>Source:</strong> UltraSignup participant pages</span>
-          <span class="dot"><strong>Tracking:</strong> 5 runners · 4 upcoming entries (1 added by hand)</span>
+          <span class="dot"><strong>Tracking:</strong> 5 runners · 4 upcoming entries</span>
         </div>
       </header>
 
-      <h2 class="section-title">Next up <span class="count">— soonest race day on the board</span></h2>
-      <section class="next-up" aria-label="Next upcoming event">
-        <div>
-          <p class="event-name">Sombrero Ultra Running Festival ( SURF ) — 48 Hours</p>
-          <p class="event-when">Friday, February 12, 2027</p>
-          <div class="who-row">
-            <div class="who">
-              <p class="who-label">On the start list <span class="count">3 of 5</span></p>
-              <div class="who-chips">
-                <a href="#chris-ballesteros">Chris Ballesteros</a>
-                <a href="#jennifer-jochman">Jennifer Jochman</a>
-                <a href="#kassandra-coan">Kassandra Coan</a>
+      <h2 class="section-title">Upcoming events <span class="count">— every race on the calendar, soonest first</span></h2>
+      <div class="event-stack">
+        <section class="next-up" aria-label="Upcoming event: Central Florida Legends Skunk Ape Full Marathon">
+          <div>
+            <p class="event-name">Central Florida Legends — Skunk Ape Full Marathon</p>
+            <p class="event-fullname">AdventHealth Presents the Central Florida Legends Marathon, Half Marathon and 5K — this entry is the full marathon option only.</p>
+            <p class="event-when">Saturday, November 14, 2026 · 7:00 AM EST</p>
+            <p class="event-where">Gemini Springs Park, 37 Dirksen Drive, DeBary, FL 32713</p>
+            <div class="who-row">
+              <div class="who">
+                <p class="who-label">On the start list <span class="count">1 of 5</span></p>
+                <div class="who-chips">
+                  <a href="#chris-ballesteros">Chris Ballesteros</a>
+                </div>
+              </div>
+              <div class="who">
+                <p class="who-label">Not registered</p>
+                <div class="who-chips not-in">
+                  <a href="#jennifer-jochman">Jennifer Jochman</a>
+                  <a href="#juan-valdez">Juan Valdez</a>
+                  <a href="#jody-mask">Jody Mask</a>
+                  <a href="#kassandra-coan">Kassandra Coan</a>
+                </div>
               </div>
             </div>
-            <div class="who">
-              <p class="who-label">Not registered</p>
-              <div class="who-chips not-in">
-                <a href="#juan-valdez">Juan Valdez</a>
-                <a href="#jody-mask">Jody Mask</a>
-              </div>
-            </div>
+            <p class="source-line"><a href="https://runsignup.com/Race/FL/DeBary/CFLegends" target="_blank" rel="noopener">Race page on RunSignup →</a></p>
           </div>
-        </div>
-        <div class="countdown" aria-label="Countdown to race day">
-          <div class="num" id="countdown-num">116</div>
-          <div class="unit">days to go</div>
-        </div>
-      </section>
+          <div class="countdown" aria-label="Countdown to race day">
+            <div class="num" id="skunk-countdown-num">25</div>
+            <div class="unit">days to go</div>
+          </div>
+        </section>
 
-      <h2 class="section-title">Manually added <span class="count">— races added in chat, kept across every refresh</span></h2>
-      <section class="next-up manual" aria-label="Manually added event">
-        <div>
-          <p class="event-name">Central Florida Legends — Skunk Ape Full Marathon <span class="badge">Added by hand</span></p>
-          <p class="event-fullname">AdventHealth Presents the Central Florida Legends Marathon, Half Marathon and 5K — this entry is the full marathon option only.</p>
-          <p class="event-when">Saturday, November 14, 2026 · 7:00 AM EST</p>
-          <p class="event-where">Gemini Springs Park, 37 Dirksen Drive, DeBary, FL 32713</p>
-          <div class="who-row">
-            <div class="who">
-              <p class="who-label">On the start list <span class="count">1 of 5</span></p>
-              <div class="who-chips">
-                <a href="#chris-ballesteros">Chris Ballesteros</a>
+        <section class="next-up" aria-label="Upcoming event: Sombrero Ultra Running Festival">
+          <div>
+            <p class="event-name">Sombrero Ultra Running Festival ( SURF ) — 48 Hours</p>
+            <p class="event-when">Friday, February 12, 2027</p>
+            <div class="who-row">
+              <div class="who">
+                <p class="who-label">On the start list <span class="count">3 of 5</span></p>
+                <div class="who-chips">
+                  <a href="#chris-ballesteros">Chris Ballesteros</a>
+                  <a href="#jennifer-jochman">Jennifer Jochman</a>
+                  <a href="#kassandra-coan">Kassandra Coan</a>
+                </div>
               </div>
-            </div>
-            <div class="who">
-              <p class="who-label">Not registered</p>
-              <div class="who-chips not-in">
-                <a href="#jennifer-jochman">Jennifer Jochman</a>
-                <a href="#juan-valdez">Juan Valdez</a>
-                <a href="#jody-mask">Jody Mask</a>
-                <a href="#kassandra-coan">Kassandra Coan</a>
+              <div class="who">
+                <p class="who-label">Not registered</p>
+                <div class="who-chips not-in">
+                  <a href="#juan-valdez">Juan Valdez</a>
+                  <a href="#jody-mask">Jody Mask</a>
+                </div>
               </div>
             </div>
           </div>
-          <p class="source-line"><a href="https://runsignup.com/Race/FL/DeBary/CFLegends" target="_blank" rel="noopener">Race page on RunSignup →</a></p>
-        </div>
-        <div class="countdown" aria-label="Countdown to race day">
-          <div class="num" id="manual-countdown-num">25</div>
-          <div class="unit">days to go</div>
-        </div>
-      </section>
+          <div class="countdown" aria-label="Countdown to race day">
+            <div class="num" id="sombrero-countdown-num">116</div>
+            <div class="unit">days to go</div>
+          </div>
+        </section>
+      </div>
 
       <h2 class="section-title">The runners <span class="count">— tap a card open for full history</span></h2>
       <div class="friends">
@@ -347,7 +348,7 @@
           <div class="upcoming-block">
             <p class="block-label">Upcoming</p>
             <div class="upcoming-item">
-              <div class="u-name">Central Florida Legends — Skunk Ape Full Marathon <span class="badge">Added by hand</span></div>
+              <div class="u-name">Central Florida Legends — Skunk Ape Full Marathon</div>
               <div class="u-when">Sat, Nov 14, 2026 · 7:00 AM</div>
             </div>
             <div class="upcoming-item">
@@ -628,19 +629,19 @@
 
     <script>
       (function () {
-        // Countdown to the next race day (Feb 12, 2027), computed from the viewer's clock.
-        var target = new Date(2027, 1, 12);
+        // Countdowns to each upcoming race day, computed from the viewer's clock.
         var now = new Date();
         var startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        var days = Math.round((target - startOfToday) / 86400000);
-        var el = document.getElementById("countdown-num");
-        if (el && days >= 0) el.textContent = days;
 
-        // Countdown to the manually added race (Nov 14, 2026).
-        var manualTarget = new Date(2026, 10, 14);
-        var manualDays = Math.round((manualTarget - startOfToday) / 86400000);
-        var mel = document.getElementById("manual-countdown-num");
-        if (mel && manualDays >= 0) mel.textContent = manualDays;
+        var skunkTarget = new Date(2026, 10, 14);
+        var skunkDays = Math.round((skunkTarget - startOfToday) / 86400000);
+        var skunkEl = document.getElementById("skunk-countdown-num");
+        if (skunkEl && skunkDays >= 0) skunkEl.textContent = skunkDays;
+
+        var sombreroTarget = new Date(2027, 1, 12);
+        var sombreroDays = Math.round((sombreroTarget - startOfToday) / 86400000);
+        var sombreroEl = document.getElementById("sombrero-countdown-num");
+        if (sombreroEl && sombreroDays >= 0) sombreroEl.textContent = sombreroDays;
 
         // Expand / collapse full history per card.
         var buttons = document.querySelectorAll(".toggle-btn");
