@@ -165,6 +165,21 @@
       }
       .countdown .unit { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); }
 
+      /* ---------- Festival (multi-race) card ---------- */
+      .next-up.festival { display: block; }
+      .festival-head .event-name { margin-bottom: 6px; }
+      .festival-head .festival-note { margin: 6px 0 0; color: var(--ink-soft); font-size: 0.98rem; }
+      .sub-event {
+        display: grid; grid-template-columns: 1fr auto; gap: 16px 28px; align-items: start;
+        border-top: 1px solid var(--line); margin-top: 20px; padding-top: 20px;
+      }
+      .sub-event .event-name { font-size: clamp(1.3rem, 3.8vw, 1.65rem); }
+      .sub-event .countdown .num { font-size: clamp(2.2rem, 6vw, 3rem); }
+      @media (max-width: 600px) {
+        .sub-event { grid-template-columns: 1fr; }
+        .sub-event .countdown { text-align: left; }
+      }
+
       /* ---------- Friend cards ---------- */
       .friends { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
       @media (max-width: 760px) { .friends { grid-template-columns: 1fr; } }
@@ -264,7 +279,7 @@
         <div class="meta-row">
           <span><strong>Last checked:</strong> Monday, October 19, 2026</span>
           <span class="dot"><strong>Source:</strong> UltraSignup participant pages</span>
-          <span class="dot"><strong>Tracking:</strong> 5 runners · 4 upcoming entries</span>
+          <span class="dot"><strong>Tracking:</strong> 5 runners · 9 upcoming entries</span>
         </div>
       </header>
 
@@ -298,6 +313,106 @@
           <div class="countdown" aria-label="Countdown to race day">
             <div class="num" id="skunk-countdown-num">25</div>
             <div class="unit">days to go</div>
+          </div>
+        </section>
+
+        <!-- MANUAL EVENT: preserve on rebuilds -->
+        <section class="next-up festival" data-manual="true" aria-label="Upcoming event: St. Pete Run Fest">
+          <div class="festival-head">
+            <p class="event-name">St. Pete Run Fest</p>
+            <p class="event-when">Friday, November 13 – Sunday, November 15, 2026</p>
+            <p class="event-where">Bayshore Drive near Dali Museum, St. Petersburg, FL</p>
+            <p class="festival-note">Three races across the festival weekend — a 10K and 5K on Saturday, and the half marathon on Sunday.</p>
+          </div>
+
+          <div class="sub-event">
+            <div>
+              <p class="event-name">Orlando Health St Pete Run Fest 10K</p>
+              <p class="event-when">Saturday, November 14, 2026 · 6:45 AM EST</p>
+              <p class="event-where">Bayshore Drive near Dali Museum, St. Petersburg, FL</p>
+              <div class="who-row">
+                <div class="who">
+                  <p class="who-label">On the start list <span class="count">1 of 5</span></p>
+                  <div class="who-chips">
+                    <a href="#jody-mask">Jody Mask</a>
+                  </div>
+                </div>
+                <div class="who">
+                  <p class="who-label">Not registered</p>
+                  <div class="who-chips not-in">
+                    <a href="#chris-ballesteros">Chris Ballesteros</a>
+                    <a href="#jennifer-jochman">Jennifer Jochman</a>
+                    <a href="#juan-valdez">Juan Valdez</a>
+                    <a href="#kassandra-coan">Kassandra Coan</a>
+                  </div>
+                </div>
+              </div>
+              <p class="source-line"><a href="https://stpeterunfest.org/" target="_blank" rel="noopener">Race page — St. Pete Run Fest →</a></p>
+            </div>
+            <div class="countdown" aria-label="Countdown to race day">
+              <div class="num" id="stpete-10k-countdown-num">25</div>
+              <div class="unit">days to go</div>
+            </div>
+          </div>
+
+          <div class="sub-event">
+            <div>
+              <p class="event-name">LMCU St Pete Run Fest 5K</p>
+              <p class="event-when">Saturday, November 14, 2026 · 8:30 AM EST</p>
+              <p class="event-where">Bayshore Drive near Dali Museum, St. Petersburg, FL</p>
+              <div class="who-row">
+                <div class="who">
+                  <p class="who-label">On the start list <span class="count">1 of 5</span></p>
+                  <div class="who-chips">
+                    <a href="#jody-mask">Jody Mask</a>
+                  </div>
+                </div>
+                <div class="who">
+                  <p class="who-label">Not registered</p>
+                  <div class="who-chips not-in">
+                    <a href="#chris-ballesteros">Chris Ballesteros</a>
+                    <a href="#jennifer-jochman">Jennifer Jochman</a>
+                    <a href="#juan-valdez">Juan Valdez</a>
+                    <a href="#kassandra-coan">Kassandra Coan</a>
+                  </div>
+                </div>
+              </div>
+              <p class="source-line"><a href="https://stpeterunfest.org/" target="_blank" rel="noopener">Race page — St. Pete Run Fest →</a></p>
+            </div>
+            <div class="countdown" aria-label="Countdown to race day">
+              <div class="num" id="stpete-5k-countdown-num">25</div>
+              <div class="unit">days to go</div>
+            </div>
+          </div>
+
+          <div class="sub-event">
+            <div>
+              <p class="event-name">Regenexx St. Pete Half Marathon</p>
+              <p class="event-when">Sunday, November 15, 2026 · 6:45 AM EST</p>
+              <p class="event-where">Bayshore Drive near Dali Museum, St. Petersburg, FL</p>
+              <div class="who-row">
+                <div class="who">
+                  <p class="who-label">On the start list <span class="count">3 of 5</span></p>
+                  <div class="who-chips">
+                    <a href="#chris-ballesteros">Chris Ballesteros</a>
+                    <a href="#jody-mask">Jody Mask</a>
+                    <a href="#juan-valdez">Juan Valdez</a>
+                  </div>
+                </div>
+                <div class="who">
+                  <p class="who-label">Not registered</p>
+                  <div class="who-chips not-in">
+                    <a href="#jennifer-jochman">Jennifer Jochman</a>
+                    <a href="#kassandra-coan">Kassandra Coan</a>
+                  </div>
+                </div>
+              </div>
+              <p class="source-line"><a href="https://stpeterunfest.org/" target="_blank" rel="noopener">Race page — St. Pete Run Fest →</a></p>
+            </div>
+            <div class="countdown" aria-label="Countdown to race day">
+              <div class="num" id="stpete-half-countdown-num">26</div>
+              <div class="unit">days to go</div>
+            </div>
           </div>
         </section>
 
@@ -350,6 +465,10 @@
             <div class="upcoming-item">
               <div class="u-name">Central Florida Legends — Skunk Ape Full Marathon</div>
               <div class="u-when">Sat, Nov 14, 2026 · 7:00 AM</div>
+            </div>
+            <div class="upcoming-item">
+              <div class="u-name">St. Pete Run Fest — Regenexx St. Pete Half Marathon</div>
+              <div class="u-when">Sun, Nov 15, 2026 · 6:45 AM</div>
             </div>
             <div class="upcoming-item">
               <div class="u-name">Sombrero Ultra Running Festival ( SURF ) — 48 Hours</div>
@@ -554,7 +673,10 @@
           <p class="card-note">Tracked profile: the M51 Juan Valdez with 3 races — other runners share this name on UltraSignup.</p>
           <div class="upcoming-block">
             <p class="block-label">Upcoming</p>
-            <div class="no-upcoming">No upcoming events on his profile right now.</div>
+            <div class="upcoming-item">
+              <div class="u-name">St. Pete Run Fest — Regenexx St. Pete Half Marathon</div>
+              <div class="u-when">Sun, Nov 15, 2026 · 6:45 AM</div>
+            </div>
           </div>
           <div class="results-block">
             <p class="block-label">Results</p>
@@ -593,7 +715,18 @@
           </div>
           <div class="upcoming-block">
             <p class="block-label">Upcoming</p>
-            <div class="no-upcoming">No upcoming events on his profile right now.</div>
+            <div class="upcoming-item">
+              <div class="u-name">St. Pete Run Fest — Orlando Health St Pete Run Fest 10K</div>
+              <div class="u-when">Sat, Nov 14, 2026 · 6:45 AM</div>
+            </div>
+            <div class="upcoming-item">
+              <div class="u-name">St. Pete Run Fest — LMCU St Pete Run Fest 5K</div>
+              <div class="u-when">Sat, Nov 14, 2026 · 8:30 AM</div>
+            </div>
+            <div class="upcoming-item">
+              <div class="u-name">St. Pete Run Fest — Regenexx St. Pete Half Marathon</div>
+              <div class="u-when">Sun, Nov 15, 2026 · 6:45 AM</div>
+            </div>
           </div>
           <div class="results-block">
             <p class="block-label">Results</p>
@@ -642,6 +775,18 @@
         var sombreroDays = Math.round((sombreroTarget - startOfToday) / 86400000);
         var sombreroEl = document.getElementById("sombrero-countdown-num");
         if (sombreroEl && sombreroDays >= 0) sombreroEl.textContent = sombreroDays;
+
+        var stpeteSatTarget = new Date(2026, 10, 14);
+        var stpeteSatDays = Math.round((stpeteSatTarget - startOfToday) / 86400000);
+        var stpete10kEl = document.getElementById("stpete-10k-countdown-num");
+        if (stpete10kEl && stpeteSatDays >= 0) stpete10kEl.textContent = stpeteSatDays;
+        var stpete5kEl = document.getElementById("stpete-5k-countdown-num");
+        if (stpete5kEl && stpeteSatDays >= 0) stpete5kEl.textContent = stpeteSatDays;
+
+        var stpeteHalfTarget = new Date(2026, 10, 15);
+        var stpeteHalfDays = Math.round((stpeteHalfTarget - startOfToday) / 86400000);
+        var stpeteHalfEl = document.getElementById("stpete-half-countdown-num");
+        if (stpeteHalfEl && stpeteHalfDays >= 0) stpeteHalfEl.textContent = stpeteHalfDays;
 
         // Expand / collapse full history per card.
         var buttons = document.querySelectorAll(".toggle-btn");
