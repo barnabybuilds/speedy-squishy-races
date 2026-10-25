@@ -502,7 +502,7 @@
             <dd>Last refreshed: Sunday, October 25, 2026 at 12:56 PM EDT</dd>
           </div>
         </dl>
-        <p class="next-refresh" id="next-refresh">Next scheduled refresh: Monday, October 26, 2026 at 8:12 AM EDT</p>
+        <p class="next-refresh" id="next-refresh">Next scheduled refresh: Sunday, October 25, 2026 at 9:00 PM EDT</p>
       </section>
 
       <section aria-labelledby="upcoming-heading">
@@ -1386,10 +1386,13 @@
         setCountdown("stpete-half-countdown-num", new Date(2026, 10, 15));
         setCountdown("sombrero-countdown-num", new Date(2027, 1, 12));
 
-        // Next scheduled refresh, worked out from the two update jobs:
-        // the daily UltraSignup check at about 8:12 AM, and the Run Club
-        // location watch on Mondays, Wednesdays and Thursdays at about
-        // 9:12 AM (America/New_York). Whichever comes next is shown.
+        // Next scheduled refresh: the next run of the daily update jobs,
+        // which fire at 9:00 AM and 9:00 PM America/New_York every day.
+        // Worked out from the viewer's clock on every load and re-checked
+        // every minute, so the line never goes stale as runs pass. The
+        // Intl formatters below resolve the zone's UTC offset at each
+        // candidate instant, so the EDT/EST label flips correctly across
+        // daylight-saving changes.
         var nextEl = document.getElementById("next-refresh");
         if (nextEl) {
           var TZ = "America/New_York";
@@ -1413,26 +1416,28 @@
             var t = guess - nyOffsetMs(new Date(guess));
             return new Date(guess - nyOffsetMs(new Date(t)));
           }
-          var nowNY = new Date();
-          var p0 = nyParts(nowNY);
-          var best = null;
-          for (var i = 0; i < 9; i++) {
-            var day = new Date(Date.UTC(+p0.year, +p0.month - 1, +p0.day + i, 12, 0, 0));
-            var y = day.getUTCFullYear(), mo = day.getUTCMonth() + 1, d = day.getUTCDate();
-            var dow = day.getUTCDay();
-            var cands = [nyWallToDate(y, mo, d, 8, 12)];
-            if (dow === 1 || dow === 3 || dow === 4) cands.push(nyWallToDate(y, mo, d, 9, 12));
-            cands.forEach(function (c) {
-              if (c > nowNY && (best === null || c < best)) best = c;
-            });
+          var labelFmt = new Intl.DateTimeFormat("en-US", {
+            timeZone: TZ, weekday: "long", month: "long", day: "numeric",
+            year: "numeric", hour: "numeric", minute: "2-digit", timeZoneName: "short"
+          });
+          function updateNextRefresh() {
+            var nowNY = new Date();
+            var p0 = nyParts(nowNY);
+            var best = null;
+            for (var i = 0; i < 3; i++) {
+              var day = new Date(Date.UTC(+p0.year, +p0.month - 1, +p0.day + i, 12, 0, 0));
+              var y = day.getUTCFullYear(), mo = day.getUTCMonth() + 1, d = day.getUTCDate();
+              [9, 21].forEach(function (h) {
+                var c = nyWallToDate(y, mo, d, h, 0);
+                if (c > nowNY && (best === null || c < best)) best = c;
+              });
+            }
+            if (best) {
+              nextEl.textContent = "Next scheduled refresh: " + labelFmt.format(best);
+            }
           }
-          if (best) {
-            var labelFmt = new Intl.DateTimeFormat("en-US", {
-              timeZone: TZ, weekday: "long", month: "long", day: "numeric",
-              year: "numeric", hour: "numeric", minute: "2-digit", timeZoneName: "short"
-            });
-            nextEl.textContent = "Next scheduled refresh: " + labelFmt.format(best);
-          }
+          updateNextRefresh();
+          setInterval(updateNextRefresh, 60000);
         }
 
         // Expand / collapse full history per runner card.
