@@ -1018,34 +1018,46 @@
       // Thursday runs, the weekend run, and other events posted in the group —
       // including the Oct 31 Halloween party from Jody Mask's Oct 24 post.
       var MAPS = "https://www.google.com/maps/search/?api=1&query=";
-      // Scope: two weeks of past runs first (Thu Oct 15, Thu Oct 22 and
-      // Sat Oct 24, all marked past), then every upcoming Thursday run on
-      // the calendar through Dec 31. The next weekend run is only added
-      // once Thursday's post lands.
+      // Scope: two weeks of past runs first (Thu Oct 15, the Sat Oct 17
+      // Dave Gray 5K meetup, Thu Oct 22 and Sat Oct 24), then every
+      // upcoming Thursday run on the calendar through Dec 31. The next
+      // weekend run is only added once Thursday's post lands. Which cards
+      // count as past, and which one is up next, is worked out from each
+      // event's date at load time (see eventEnd below) — not hard-coded.
       var runs = [
         {
           kind: "thu", kindLabel: "Thursday run",
           title: "Speedy Squishy Run Club",
           dateLabel: "Thu, Oct 15, 2026", timeLabel: "6:00 – 8:00 PM",
+          date: "2026-10-15", end: "20:00",
           venue: "Gravity Taproom",
           address: "777 N Orange Ave Suite D, Orlando, FL",
+          postUrl: "https://facebook.com/groups/984861831620720/permalink/28541529638860568/"
+        },
+        {
+          kind: "wknd", kindLabel: "Weekend run",
+          title: "Dave Gray 5K - Speedy Squishy meetup",
+          dateLabel: "Sat, Oct 17, 2026", timeLabel: "Starts 6:00 AM",
+          date: "2026-10-17",
+          venue: "Gators",
+          plainLoc: true,
           postUrl: "https://facebook.com/groups/984861831620720/permalink/28541529638860568/",
-          past: true
+          note: "Meet at Gators at 6:00 AM and run loops until close to the 7:30 AM race start. No stated end time — 7:30 AM is the race start, shown on the calendar as a placeholder end."
         },
         {
           kind: "thu", kindLabel: "Thursday run",
           title: "Speedy Squishy Run Club",
           dateLabel: "Thu, Oct 22, 2026", timeLabel: "6:00 – 8:00 PM",
+          date: "2026-10-22", end: "20:00",
           venue: "The Topher Taproom",
           address: "601 Virginia Dr, Orlando, FL 32803",
-          postUrl: "https://facebook.com/groups/984861831620720/permalink/28624793840534147/",
-          past: true
+          postUrl: "https://facebook.com/groups/984861831620720/permalink/28624793840534147/"
         },
         {
           kind: "wknd", kindLabel: "Weekend run",
           title: "Speedy Squishy Run Club — Weekend Run",
           dateLabel: "Sat, Oct 24, 2026", timeLabel: "Starts 5:30 AM",
-          past: true,
+          date: "2026-10-24",
           venue: "San Sebastian Trailhead, Seminole Wekiva Trail",
           address: "753 W SR 436, Altamonte Springs, FL 32714",
           postUrl: "https://facebook.com/groups/984861831620720/permalink/28624793840534147/",
@@ -1055,12 +1067,14 @@
           kind: "thu", kindLabel: "Thursday run",
           title: "Speedy Squishy Run Club",
           dateLabel: "Thu, Oct 29, 2026", timeLabel: "6:00 – 8:00 PM",
-          tba: true, nextUp: true
+          date: "2026-10-29", end: "20:00",
+          tba: true
         },
         {
           kind: "social", kindLabel: "Group event",
           title: "Halloween Party 2026 - Mask Manor",
           dateLabel: "Sat, Oct 31, 2026", timeLabel: "Starts 6:00 PM",
+          date: "2026-10-31",
           venue: "Mask Manor, Winter Park, FL",
           postUrl: "https://facebook.com/groups/984861831620720/permalink/28698418219838375/",
           addressOnPost: true,
@@ -1070,57 +1084,91 @@
           kind: "thu", kindLabel: "Thursday run",
           title: "Speedy Squishy Run Club",
           dateLabel: "Thu, Nov 5, 2026", timeLabel: "6:00 – 8:00 PM",
+          date: "2026-11-05", end: "20:00",
           tba: true
         },
         {
           kind: "thu", kindLabel: "Thursday run",
           title: "Speedy Squishy Run Club",
           dateLabel: "Thu, Nov 12, 2026", timeLabel: "6:00 – 8:00 PM",
+          date: "2026-11-12", end: "20:00",
           tba: true
         },
         {
           kind: "thu", kindLabel: "Thursday run",
           title: "Speedy Squishy Run Club",
           dateLabel: "Thu, Nov 19, 2026", timeLabel: "6:00 – 8:00 PM",
+          date: "2026-11-19", end: "20:00",
           tba: true
         },
         {
           kind: "thu", kindLabel: "Thursday run",
           title: "Speedy Squishy Run Club",
           dateLabel: "Thu, Nov 26, 2026", timeLabel: "6:00 – 8:00 PM",
+          date: "2026-11-26", end: "20:00",
           tba: true
         },
         {
           kind: "thu", kindLabel: "Thursday run",
           title: "Speedy Squishy Run Club",
           dateLabel: "Thu, Dec 3, 2026", timeLabel: "6:00 – 8:00 PM",
+          date: "2026-12-03", end: "20:00",
           tba: true
         },
         {
           kind: "thu", kindLabel: "Thursday run",
           title: "Speedy Squishy Run Club",
           dateLabel: "Thu, Dec 10, 2026", timeLabel: "6:00 – 8:00 PM",
+          date: "2026-12-10", end: "20:00",
           tba: true
         },
         {
           kind: "thu", kindLabel: "Thursday run",
           title: "Speedy Squishy Run Club",
           dateLabel: "Thu, Dec 17, 2026", timeLabel: "6:00 – 8:00 PM",
+          date: "2026-12-17", end: "20:00",
           tba: true
         },
         {
           kind: "thu", kindLabel: "Thursday run",
           title: "Speedy Squishy Run Club",
           dateLabel: "Thu, Dec 24, 2026", timeLabel: "6:00 – 8:00 PM",
+          date: "2026-12-24", end: "20:00",
           tba: true
         },
         {
           kind: "thu", kindLabel: "Thursday run",
           title: "Speedy Squishy Run Club",
           dateLabel: "Thu, Dec 31, 2026", timeLabel: "6:00 – 8:00 PM",
+          date: "2026-12-31", end: "20:00",
           tba: true
         }
       ];
+
+      // Date-aware past / up-next selection, using the viewer's local
+      // clock: an event stays up next until it is completed — that means
+      // its stated end time where one exists (Thursday runs end 8:00 PM),
+      // or, when no end time was stated (e.g. the Halloween party, which
+      // only has a 6:00 PM start), an internal cutoff of 11:59 PM on the
+      // event's date. That 11:59 PM cutoff is calculation-only and is
+      // never shown on a card; cards with no stated end time keep saying
+      // so. The first event that has not passed becomes the up-next card.
+      function eventEnd(r) {
+        var p = r.date.split("-");
+        var d = new Date(+p[0], +p[1] - 1, +p[2]);
+        if (r.end) {
+          var t = r.end.split(":");
+          d.setHours(+t[0], +t[1], 0, 0);
+        } else {
+          d.setHours(23, 59, 59, 999);
+        }
+        return d;
+      }
+      var loadNow = new Date();
+      runs.forEach(function (r) { r.past = loadNow > eventEnd(r); });
+      for (var n = 0; n < runs.length; n++) {
+        if (!runs[n].past) { runs[n].nextUp = true; break; }
+      }
 
       var pinSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg>';
 
@@ -1179,7 +1227,7 @@
           lt.innerHTML = pinSvg + "<span>Meetup spot not yet announced</span>";
           loc.appendChild(lt);
         } else {
-          if (r.addressOnPost) {
+          if (r.plainLoc || r.addressOnPost) {
             var locText = document.createElement("div");
             locText.className = "loc-text";
             locText.innerHTML = pinSvg + "<span>" + r.venue + "</span>";
@@ -1227,8 +1275,9 @@
         carousel.appendChild(card);
       });
 
-      // Start the row on the up-next card, so the past events sit to its
-      // left (scroll back for history) and upcoming events to its right.
+      // Start the row on the up-next card (whichever event the date-aware
+      // selection above picked), so the past events sit to its left
+      // (scroll back for history) and upcoming events to its right.
       var nextCard = carousel.querySelector(".run-card.next-up");
       if (nextCard) {
         carousel.scrollLeft = Math.max(0, nextCard.offsetLeft - carousel.offsetLeft);
