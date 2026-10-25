@@ -119,6 +119,7 @@
         font-weight: 600;
         color: var(--teal-deep);
       }
+      .next-refresh { margin: 12px 0 0; font-size: 15px; text-align: left; }
       /* ---------- Section head ---------- */
       .section-head {
         display: flex;
@@ -501,6 +502,7 @@
             <dd>Last refreshed: Sunday, October 25, 2026 at 12:56 PM EDT</dd>
           </div>
         </dl>
+        <p class="next-refresh" id="next-refresh">Next scheduled refresh: Monday, October 26, 2026 at 8:12 AM EDT</p>
       </section>
 
       <section aria-labelledby="upcoming-heading">
@@ -533,34 +535,72 @@
         </div>
 
         <div class="race-stack">
-          <section class="race-card" aria-label="Upcoming event: Central Florida Legends Skunk Ape Full Marathon">
-            <div>
-              <p class="race-name">Central Florida Legends — Skunk Ape Full Marathon</p>
-              <p class="race-fullname">AdventHealth Presents the Central Florida Legends Marathon, Half Marathon and 5K — this entry is the full marathon option only.</p>
-              <p class="race-when">Saturday, November 14, 2026 · 7:00 AM EST</p>
+          <!-- MANUAL EVENT: preserve on rebuilds -->
+          <section class="race-card festival" data-manual="true" aria-label="Upcoming event: Central Florida Legends">
+            <div class="festival-head">
+              <p class="race-name">Central Florida Legends</p>
+              <p class="race-fullname">AdventHealth Presents the Central Florida Legends Marathon, Half Marathon and 5K</p>
+              <p class="race-when">Saturday, November 14, 2026</p>
               <p class="race-where">Gemini Springs Park, 37 Dirksen Drive, DeBary, FL 32713</p>
-              <div class="who-row">
-                <div class="who">
-                  <p class="who-label">On the start list <span class="count">1 of 5</span></p>
-                  <div class="who-chips">
-                    <a href="#chris-ballesteros">Chris Ballesteros</a>
-                  </div>
-                </div>
-                <div class="who">
-                  <p class="who-label">Not registered</p>
-                  <div class="who-chips not-in">
-                    <a href="#jennifer-jochman">Jennifer Jochman</a>
-                    <a href="#juan-valdez">Juan Valdez</a>
-                    <a href="#jody-mask">Jody Mask</a>
-                    <a href="#kassandra-coan">Kassandra Coan</a>
-                  </div>
-                </div>
-              </div>
-              <p class="source-line"><a href="https://runsignup.com/Race/FL/DeBary/CFLegends" target="_blank" rel="noopener">Race page on RunSignup →</a></p>
             </div>
-            <div class="countdown" aria-label="Countdown to race day">
-              <div class="num" id="skunk-countdown-num">20</div>
-              <div class="unit">days to go</div>
+
+            <div class="sub-event">
+              <div>
+                <p class="race-name">Skunk Ape Full Marathon</p>
+                <p class="race-when">Saturday, November 14, 2026 · 7:00 AM EST</p>
+                <p class="race-where">Gemini Springs Park, 37 Dirksen Drive, DeBary, FL 32713</p>
+                <div class="who-row">
+                  <div class="who">
+                    <p class="who-label">On the start list <span class="count">1 of 5</span></p>
+                    <div class="who-chips">
+                      <a href="#chris-ballesteros">Chris Ballesteros</a>
+                    </div>
+                  </div>
+                  <div class="who">
+                    <p class="who-label">Not registered</p>
+                    <div class="who-chips not-in">
+                      <a href="#jennifer-jochman">Jennifer Jochman</a>
+                      <a href="#juan-valdez">Juan Valdez</a>
+                      <a href="#jody-mask">Jody Mask</a>
+                      <a href="#kassandra-coan">Kassandra Coan</a>
+                    </div>
+                  </div>
+                </div>
+                <p class="source-line"><a href="https://runsignup.com/Race/FL/DeBary/CFLegends" target="_blank" rel="noopener">Race page on RunSignup →</a></p>
+              </div>
+              <div class="countdown" aria-label="Countdown to race day">
+                <div class="num" id="skunk-countdown-num">20</div>
+                <div class="unit">days to go</div>
+              </div>
+            </div>
+
+            <div class="sub-event">
+              <div>
+                <p class="race-name">Mermaid Half Marathon</p>
+                <p class="race-when">Saturday, November 14, 2026 · 7:30 AM EST</p>
+                <p class="race-where">Gemini Springs Park, 37 Dirksen Drive, DeBary, FL 32713</p>
+                <div class="who-row">
+                  <div class="who">
+                    <p class="who-label">On the start list <span class="count">0 of 5</span></p>
+                    <div class="who-chips"></div>
+                  </div>
+                  <div class="who">
+                    <p class="who-label">Not registered</p>
+                    <div class="who-chips not-in">
+                      <a href="#chris-ballesteros">Chris Ballesteros</a>
+                      <a href="#jennifer-jochman">Jennifer Jochman</a>
+                      <a href="#juan-valdez">Juan Valdez</a>
+                      <a href="#jody-mask">Jody Mask</a>
+                      <a href="#kassandra-coan">Kassandra Coan</a>
+                    </div>
+                  </div>
+                </div>
+                <p class="source-line"><a href="https://runsignup.com/Race/FL/DeBary/CFLegends" target="_blank" rel="noopener">Race page on RunSignup →</a></p>
+              </div>
+              <div class="countdown" aria-label="Countdown to race day">
+                <div class="num" id="mermaid-countdown-num">20</div>
+                <div class="unit">days to go</div>
+              </div>
             </div>
           </section>
 
@@ -1340,10 +1380,60 @@
           if (el && days >= 0) el.textContent = days;
         }
         setCountdown("skunk-countdown-num", new Date(2026, 10, 14));
+        setCountdown("mermaid-countdown-num", new Date(2026, 10, 14));
         setCountdown("stpete-10k-countdown-num", new Date(2026, 10, 14));
         setCountdown("stpete-5k-countdown-num", new Date(2026, 10, 14));
         setCountdown("stpete-half-countdown-num", new Date(2026, 10, 15));
         setCountdown("sombrero-countdown-num", new Date(2027, 1, 12));
+
+        // Next scheduled refresh, worked out from the two update jobs:
+        // the daily UltraSignup check at about 8:12 AM, and the Run Club
+        // location watch on Mondays, Wednesdays and Thursdays at about
+        // 9:12 AM (America/New_York). Whichever comes next is shown.
+        var nextEl = document.getElementById("next-refresh");
+        if (nextEl) {
+          var TZ = "America/New_York";
+          var partsFmt = new Intl.DateTimeFormat("en-US", {
+            timeZone: TZ, hour12: false,
+            year: "numeric", month: "2-digit", day: "2-digit",
+            hour: "2-digit", minute: "2-digit", second: "2-digit"
+          });
+          function nyParts(date) {
+            var p = {};
+            partsFmt.formatToParts(date).forEach(function (part) { p[part.type] = part.value; });
+            return p;
+          }
+          function nyOffsetMs(date) {
+            var p = nyParts(date);
+            var asUTC = Date.UTC(+p.year, +p.month - 1, +p.day, (+p.hour) % 24, +p.minute, +p.second);
+            return asUTC - Math.floor(date.getTime() / 1000) * 1000;
+          }
+          function nyWallToDate(y, mo, d, h, mi) {
+            var guess = Date.UTC(y, mo - 1, d, h, mi, 0);
+            var t = guess - nyOffsetMs(new Date(guess));
+            return new Date(guess - nyOffsetMs(new Date(t)));
+          }
+          var nowNY = new Date();
+          var p0 = nyParts(nowNY);
+          var best = null;
+          for (var i = 0; i < 9; i++) {
+            var day = new Date(Date.UTC(+p0.year, +p0.month - 1, +p0.day + i, 12, 0, 0));
+            var y = day.getUTCFullYear(), mo = day.getUTCMonth() + 1, d = day.getUTCDate();
+            var dow = day.getUTCDay();
+            var cands = [nyWallToDate(y, mo, d, 8, 12)];
+            if (dow === 1 || dow === 3 || dow === 4) cands.push(nyWallToDate(y, mo, d, 9, 12));
+            cands.forEach(function (c) {
+              if (c > nowNY && (best === null || c < best)) best = c;
+            });
+          }
+          if (best) {
+            var labelFmt = new Intl.DateTimeFormat("en-US", {
+              timeZone: TZ, weekday: "long", month: "long", day: "numeric",
+              year: "numeric", hour: "numeric", minute: "2-digit", timeZoneName: "short"
+            });
+            nextEl.textContent = "Next scheduled refresh: " + labelFmt.format(best);
+          }
+        }
 
         // Expand / collapse full history per runner card.
         var buttons = document.querySelectorAll(".toggle-btn");
