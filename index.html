@@ -1018,11 +1018,20 @@
       // Thursday runs, the weekend run, and other events posted in the group —
       // including the Oct 31 Halloween party from Jody Mask's Oct 24 post.
       var MAPS = "https://www.google.com/maps/search/?api=1&query=";
-      // Scope: one week of past runs first (Thu Oct 22 and Sat Oct 24, both
-      // marked past), then every upcoming Thursday run on the calendar
-      // through Dec 31. The next weekend run is only added once Thursday's
-      // post lands.
+      // Scope: two weeks of past runs first (Thu Oct 15, Thu Oct 22 and
+      // Sat Oct 24, all marked past), then every upcoming Thursday run on
+      // the calendar through Dec 31. The next weekend run is only added
+      // once Thursday's post lands.
       var runs = [
+        {
+          kind: "thu", kindLabel: "Thursday run",
+          title: "Speedy Squishy Run Club",
+          dateLabel: "Thu, Oct 15, 2026", timeLabel: "6:00 – 8:00 PM",
+          venue: "Gravity Taproom",
+          address: "777 N Orange Ave Suite D, Orlando, FL",
+          postUrl: "https://facebook.com/groups/984861831620720/permalink/28541529638860568/",
+          past: true
+        },
         {
           kind: "thu", kindLabel: "Thursday run",
           title: "Speedy Squishy Run Club",
