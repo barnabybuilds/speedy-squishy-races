@@ -495,14 +495,14 @@
         <dl class="refresh-rows">
           <div class="refresh-row">
             <dt>Data sourced from UltraSignup</dt>
-            <dd>Last refreshed: Sunday, October 25, 2026 at 4:13 AM EDT</dd>
+            <dd>Last refreshed: Tuesday, October 27, 2026 at 8:58 AM EDT</dd>
           </div>
           <div class="refresh-row">
             <dt>Data sourced from Facebook group</dt>
-            <dd>Last refreshed: Sunday, October 25, 2026 at 12:56 PM EDT</dd>
+            <dd>Last refreshed: Tuesday, October 27, 2026 at 8:59 AM EDT</dd>
           </div>
         </dl>
-        <p class="next-refresh" id="next-refresh">Next scheduled refresh: Sunday, October 25, 2026 at 9:00 PM EDT</p>
+        <p class="next-refresh" id="next-refresh">Next scheduled refresh: Tuesday, October 27, 2026 at 9:00 PM EDT</p>
       </section>
 
       <section aria-labelledby="upcoming-heading">
@@ -1054,14 +1054,15 @@
     </div>
 
     <script>
-      // Everything aggregated from the Facebook group, snapshot Sun Oct 25, 2026:
-      // Thursday runs, the weekend run, and other events posted in the group —
-      // including the Oct 31 Halloween party from Jody Mask's Oct 24 post.
+      // Everything aggregated from the Facebook group, snapshot Mon Oct 26, 2026:
+      // Thursday runs, weekend runs, and other events posted in the group —
+      // including the Oct 31 Halloween party from Jody Mask's Oct 24 post and
+      // the Thu Oct 29 / Sat Oct 31 runs from Chris Ballesteros's Oct 26 post.
       var MAPS = "https://www.google.com/maps/search/?api=1&query=";
       // Scope: two weeks of past runs first (Thu Oct 15, the Sat Oct 17
       // Dave Gray 5K meetup, Thu Oct 22 and Sat Oct 24), then every
-      // upcoming Thursday run on the calendar through Dec 31. The next
-      // weekend run is only added once Thursday's post lands. Which cards
+      // upcoming Thursday run on the calendar through Dec 31, plus the
+      // Sat Oct 31 weekend run announced in the Oct 26 post. Which cards
       // count as past, and which one is up next, is worked out from each
       // event's date at load time (see eventEnd below) — not hard-coded.
       var runs = [
@@ -1108,7 +1109,19 @@
           title: "Speedy Squishy Run Club",
           dateLabel: "Thu, Oct 29, 2026", timeLabel: "6:00 – 8:00 PM",
           date: "2026-10-29", end: "20:00",
-          tba: true
+          venue: "Brewlando Maitland",
+          address: "160 Independence Ln Suite B, Maitland, FL 32751",
+          postUrl: "https://facebook.com/groups/984861831620720/permalink/28736085939404936/"
+        },
+        {
+          kind: "wknd", kindLabel: "Weekend run",
+          title: "Speedy Squishy Run Club — Weekend Run",
+          dateLabel: "Sat, Oct 31, 2026", timeLabel: "Starts 7:00 AM",
+          date: "2026-10-31",
+          venue: "Publix at Gateway Crossing",
+          address: "851 S State Road 434, Altamonte Springs, FL 32714",
+          postUrl: "https://facebook.com/groups/984861831620720/permalink/28736085939404936/",
+          note: "10 miles, from Chris Ballesteros's Oct 26 post. No stated end time."
         },
         {
           kind: "social", kindLabel: "Group event",
