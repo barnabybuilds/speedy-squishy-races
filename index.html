@@ -704,6 +704,47 @@
             </div>
           </section>
 
+          <!-- MANUAL EVENT: preserve on rebuilds -->
+          <section class="race-card festival" data-manual="true" aria-label="Upcoming event: OUC Orlando Half Marathon">
+            <div class="festival-head">
+              <p class="race-name">OUC Orlando Half Marathon</p>
+              <p class="race-fullname">50th running</p>
+              <p class="race-when">Saturday, December 5, 2026</p>
+              <p class="race-where">Lake Eola Park, 512 E Washington St, Orlando, FL 32801</p>
+            </div>
+
+            <div class="sub-event">
+              <div>
+                <p class="race-name">OUC Orlando Half Marathon</p>
+                <p class="race-when">Saturday, December 5, 2026 · 7:15 AM EST</p>
+                <p class="race-where">Lake Eola Park, 512 E Washington St, Orlando, FL 32801</p>
+                <p class="festival-note">13.1 miles. Start and finish on East Central Boulevard outside Lake Eola Park.</p>
+                <div class="who-row">
+                  <div class="who">
+                    <p class="who-label">On the start list <span class="count">1 of 5</span></p>
+                    <div class="who-chips">
+                      <a href="#kassandra-coan">Kassandra Coan</a>
+                    </div>
+                  </div>
+                  <div class="who">
+                    <p class="who-label">Not registered</p>
+                    <div class="who-chips not-in">
+                      <a href="#chris-ballesteros">Chris Ballesteros</a>
+                      <a href="#jennifer-jochman">Jennifer Jochman</a>
+                      <a href="#juan-valdez">Juan Valdez</a>
+                      <a href="#jody-mask">Jody Mask</a>
+                    </div>
+                  </div>
+                </div>
+                <p class="source-line"><a href="https://orlandohalfmarathon.com/" target="_blank" rel="noopener">Race page — OrlandoHalfMarathon.com →</a></p>
+              </div>
+              <div class="countdown" aria-label="Countdown to race day">
+                <div class="num" id="ouc-half-countdown-num">29</div>
+                <div class="unit">days to go</div>
+              </div>
+            </div>
+          </section>
+
           <section class="race-card" aria-label="Upcoming event: Sombrero Ultra Running Festival">
             <div>
               <p class="race-name">Sombrero Ultra Running Festival ( SURF ) — 48 Hours</p>
@@ -1407,6 +1448,7 @@
         setCountdown("stpete-10k-countdown-num", new Date(2026, 10, 14));
         setCountdown("stpete-5k-countdown-num", new Date(2026, 10, 14));
         setCountdown("stpete-half-countdown-num", new Date(2026, 10, 15));
+        setCountdown("ouc-half-countdown-num", new Date(2026, 11, 5));
         setCountdown("sombrero-countdown-num", new Date(2027, 1, 12));
 
         // Next scheduled refresh: the next run of the daily update jobs,
